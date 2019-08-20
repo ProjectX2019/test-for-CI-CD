@@ -1,0 +1,166 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h4 class="my-0 mr-md-auto font-weight-normal">ProjectX</h4>
+    
+    <a id="google_translate_element" class="my-2 my-md-0 mr-md-3"></a>
+
+    <nav class="my-2 my-md-0 mr-md-3" ng-hide="IsLoggedIn">
+        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#entryFormModal" ng-click="fn_toggleLogin(false)">Login</button>
+        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#entryFormModal" ng-click="fn_toggleLogin(true)">Register</button>        
+    </nav>
+
+    <nav class="my-2 my-md-0 mr-md-3" ng-show="IsLoggedIn">
+        <button type="button" class="btn btn-link font-weight-bold" ng-click="fn_goToProfile()" style="color: #007bff;">Profile</button>       
+    </nav>    
+</div>
+
+
+<div class="container">
+    <div class="row my-5">
+        <div class="col">
+            <h4 class="mb-3" >Search for service:</h4>    
+            <div class="input-group input-group-lg">                        
+                <input class="form-control" id="pac-input" type="text" placeholder="Enter a location" autofocus>                        
+                <button type="button" class="btn btn-primary btn-lg" ng-click="print()">
+                    <strong>Search</strong>
+                </button>                               
+            </div>
+        </div>
+    </div>
+    <div class="map-example" ng-repeat="service in services">
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="map_{{ service.serviceID }}" class="map"></div>
+                <!-- <property-map class="map" id="map_{{ service.serviceID }}" lat="45.53315412" long="-73.61803162"></property-map> -->
+            </div>
+            <div class="col-lg-6">
+                <div class="heading">
+                    <h3>{{ service.pageDetails.pageHeader }}</h3>
+                    <div class="rating">
+                        <i class="fa fa-star icon"></i>
+                        <i class="fa fa-star icon"></i>
+                        <i class="fa fa-star icon"></i>
+                        <i class="fa fa-star icon"></i>
+                        <i class="fa fa-star-o icon"></i>
+                    </div>
+                </div>
+                <div class="info">
+                    <p>{{ service.pageDetails.pageDescription }}</p>
+                    <p>Aenean convallis, tortor eget vehicula vestibulum, sem nibh rutrum sem, vel sodales nisl velit eu ex. Sed hendrerit efficitur sollicitudin. Maecenas tempus augue lacus.</p>
+                </div>
+                <div class="gallery">
+                    <h5>Photos</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a href="assets/img/image2.jpg"><img class="img-fluid image" src="assets/img/image2.jpg"></a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="assets/img/image3.jpg"><img class="img-fluid image" src="assets/img/image3.jpg"></a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="assets/img/image4.jpg"><img class="img-fluid image" src="assets/img/image4.jpg"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="entryFormModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="fn_clearRegisterForm();fn_clearLoginForm()">
+                    <span aria-hidden="true">&times;</span>
+                </button>              
+
+                <img class="my-3" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="login-tab" ng-click="fn_autofocus()" ng-class="{'active': toggleLogin==false}" href="#login" data-toggle="tab" role="tab" aria-controls="login" aria-selected="true"><strong>Login</strong></strong></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" id="register-tab" ng-click="fn_autofocus()" ng-class="{'active': toggleLogin==true}" href="#register" data-toggle="tab" role="tab" aria-controls="register" aria-selected="false"><strong>Register</strong></a>
+                    </li>
+                </ul>
+                
+                <div class="tab-content" id="myTabContent">
+                    
+                    <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">                        
+                        <div class="text-center">                            
+                            <h3 class="card-title text-center my-3"><strong>Log in to find more</strong></h3>            
+                            <p class="text-center lead text-muted"><small>Access ProjectX for new customers</small></p>
+            
+                            <form class="form" name="loginForm">
+            
+                                <div class="form-group">
+                                    <input type="email" name="l_email" class="form-control" placeholder="Email" ng-model="user.email" required autofocus>
+                                </div>
+            
+                                <div class="form-group">
+                                    <input type="password" name="l_password" class="form-control" placeholder="Password" ng-model="user.password" required>
+                                    <a href="" style="color: #9cb4d8;"><small>Forgot password?</small></a>
+                                </div>
+                                
+                                <button class="btn btn-primary btn-block btn-lg" type="submit" ng-click="fn_login(user)" ng-disabled="(!user.email || !user.password)" ng-keyup="$event.keyCode == 13 && fn_login(user)">Login</button>
+                        
+                            </form>
+                                                
+                            <div class="alert alert-danger font-weight-bold mt-3" role="alert" ng-show="loginMessage!=''">
+                                {{loginMessage}}
+                            </div>
+
+                        </div>
+                    </div>
+                            
+
+                    <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                        <div class="text-center">
+                            <h3 class="card-title text-center my-3"><strong>Register to find more</strong></h3>
+                            <p class="text-center lead text-muted"><small>It’s free and always will be.</small></p>
+                        
+
+                            <form class="form" name="registerForm">
+            
+                                <div class="form-group">
+                                    <input type="email" name="email" class="form-control" placeholder="Email" ng-model="newUser.email" required autofocus>
+                                </div>
+                                            
+                                <div class="form-group">
+                                    <input type="password" name="password" class="form-control" placeholder="Create Password" ng-model="newUser.password" required>
+                                </div>
+            
+                                <div class="form-group">
+                                    <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm password" ng-model="newUser.confirmPassword" required
+                                        ng-class="{'alert alert-warning': (newUser.password != newUser.confirmPassword && registerForm.confirmPassword.$touched)}"
+                                    >
+                                </div>   
+                        
+                            </form>
+                            
+                            <button class="btn btn-primary btn-block btn-lg" type="submit" ng-click="fn_register(newUser)" ng-disabled="(!newUser.email || !newUser.password || !newUser.confirmPassword)" >Register</button>
+                            
+
+                            <div class="alert alert-danger font-weight-bold mt-3" role="alert" ng-show="registerMessage!=''">
+                                {{registerMessage}}
+                            </div>                    
+
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-muted text-center m-0 my-3"><small>All right reserved &copy; 2018</small></p>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,738 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h4 class="my-0 mr-md-auto font-weight-normal">
+        <a class="blog-header-logo text-dark" ng-click="fn_goToMain()" style="text-decoration:none">ProjectX</a>
+    </h4>
+    
+    <!--<a id="google_translate_element" class="my-2 my-md-0 mr-md-3"></a>-->
+    <span class="navbar-text lead">
+        {{ profile.userDetails.userEmail }}
+    </span>        
+
+    <img src="images/missing.png" width="37" height="37" class="rounded-circle mr-3" alt="">
+    <nav class="my-2 my-md-0 mr-md-3">       
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                <div class="dropdown-menu dropdown-menu-right mt-4" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" ng-click="fn_userSettings()">User Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" ng-click="fn_logOut()">Logout</a>                            
+                </div>
+            </li>    
+        </ul>        
+    </nav> 
+</div>
+    
+<div class="container">
+    
+    <div class="row">     
+        <div class="col-md-12">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">
+                        <strong>Card Profile</strong>                        
+                    </a>
+                    <a class="nav-item nav-link" id="nav-messages-tab" data-toggle="tab" href="#nav-messages" role="tab" aria-controls="nav-messages" aria-selected="false">
+                        <strong>Messages</strong>                        
+                    </a>
+                </div>
+            </nav>
+
+            <div class="tab-content" id="nav-tabContent">
+
+                <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">               
+
+                    <!--        Page information        -->
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <h5>BUSINESS INFORMATION</h5>
+                        </div>                                                                       
+                    </div>                                 
+                    <div class="row">
+                        <p class="lead col-md-12">
+                            <strong>Name</strong>                                        
+                        </p>                                                       
+                    </div> 
+
+                    <div class="row hoverDiv" ng-show="!editPageHeader" ng-click="fn_editPageHeader(profile.pageDetails.pageHeader)" data-toggle="tooltip" title="Edit page header" style="padding-bottom: 10px;">
+                        <div class="offset-md-1 col-md-10">
+                            <div class="display-4">
+                                <strong>{{ profile.pageDetails.pageHeader }}</strong> 
+                            </div>
+                        </div>                                                             
+                    </div>                                
+
+                    <div class="row" ng-show="editPageHeader">
+                        <div class="offset-md-1 col-md-9">
+                            <input type="text" class="form-control" ng-model="newPageHeader">
+                        </div>                 
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-link float-right" ng-click="fn_savePageHeader(newPageHeader)" data-toggle="tooltip" title="Save changes">
+                                <span class="oi oi-check"></span>
+                            </button>         
+                            <button type="button" class="btn btn-link float-right" ng-click="editPageHeader=false" data-toggle="tooltip" title="Cancel">
+                                <span class="oi oi-circle-x"></span>
+                            </button>                                                                                                                                                                    
+                        </div>                                                        
+                    </div> 
+                    
+                    <!--        Page description        -->
+                    <div class="row">
+                        <p class="lead col-md-12">
+                            <strong>Description</strong>                                        
+                        </p>                                                       
+                    </div>                              
+
+                    <div class="row hoverDiv" ng-show="!editPageDescription" ng-click="fn_editPageDescription(profile.pageDetails.pageDescription)" data-toggle="tooltip" title="Add description of service" style="padding-top: 12px;">
+                        <div class="offset-md-1 col-md-9">
+                            <div class="lead">
+                                <p>{{ profile.pageDetails.pageDescription }}</p>                                                                
+                            </div>
+                        </div>                                                                       
+                    </div>                     
+                   
+                    <div class="row" ng-show="editPageDescription">
+                        <div class="offset-md-1 col-md-9">
+                            <textarea class="form-control" ng-model="newPageDescription" rows="3"></textarea>
+                        </div>                 
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-link float-right" ng-click="fn_savePageDescription(newPageDescription)" data-toggle="tooltip" title="Save changes">
+                                <span class="oi oi-check"></span>
+                            </button>         
+                            <button type="button" class="btn btn-link float-right" ng-click="editPageDescription=false" data-toggle="tooltip" title="Cancel">
+                                <span class="oi oi-circle-x"></span>
+                            </button>                                                                                                                                                                    
+                        </div>                                                        
+                    </div>                     
+
+                    <div class="row" >
+                        <p class="lead col-md-12">
+                            <strong>Price List</strong>                                        
+                        </p>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <button type="button" style="padding:0px; color: #550cff" class="btn btn-link" ng-click="fn_priceListItemEdit()" title="Add price list item">
+                                <strong>Add treatment</strong>                                           
+                            </button>              
+                        </div>                                                                            
+                    </div>      
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 25%">Treatment</th>
+                                        <th scope="col" style="width: 12%">Price</th>
+                                        <th scope="col" style="width: 50%">Comments</th>
+                                        <th scope="col" style="width: 0.5%"></th>
+                                        <th scope="col" style="width: 0.5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-show="priceListItemEdit">
+                                        <td style="width: 25%"><input type="text" class="form-control" ng-model="priceListItem.name"></td>
+                                        <td style="width: 12%"><input type="text" class="form-control" ng-model="priceListItem.price"></td>
+                                        <td style="width: 50%"><input type="text" class="form-control" ng-model="priceListItem.comment"></td>
+                                        <td style="width: 0.5%">
+                                            <button type="button" class="btn btn-link float-right" ng-click="fn_priceListItemSave()" data-toggle="tooltip" title="Save changes" ng-disabled="!priceListItem.name || !priceListItem.price">
+                                                <span class="oi oi-check"></span>
+                                            </button>         
+                                        </td>                                            
+                                        <td style="width: 0.5%">
+                                            <button type="button" class="btn btn-link float-right" ng-click="fn_priceListItemCancel()" data-toggle="tooltip" title="Cancel">
+                                                <span class="oi oi-circle-x"></span>
+                                            </button>
+                                        </td>
+                                    </tr>                                     
+                                    <tr ng-repeat="t in profile.servicePriceList">
+                                        <td>{{ t.priceListItemName }}</td>
+                                        <td>{{ t.priceListItemPrice }}</td>
+                                        <td>{{ t.priceListItemComment }}</td>
+                                        <td></td>
+                                        <td>
+                                            <button type="button" class="btn btn-link float-right" ng-click="fn_priceListItemDelete(t)" title="Remove item from price list">
+                                                <span class="oi oi-trash"></span>
+                                            </button>
+                                        </td>
+                                    </tr>                                  
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+           
+                    <!--        Contant information    -->
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <h5>CONTACT INFORMATION</h5>
+                        </div>                                                                               
+                    </div> 
+                    <div class="row" >
+                        <p class="lead col-md-12">
+                            <strong>Email</strong>
+                        </p>                                                                                                                                                                                  
+                    </div>                                      
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <button type="button" style="padding:0px; color: #550cff" class="btn btn-link" data-target="#newEmail" data-toggle="collapse" title="Add email">
+                                <strong>Add email</strong>                                           
+                            </button>              
+                        </div>                                                                            
+                    </div>          
+
+                    <div class="collapse" id="newEmail" style="margin-bottom: 1rem;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" ng-model="newEmail.value" placeholder="Add new email">
+                                    </div>  
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-success float-right" ng-click="fn_serviceEmailAdd()" data-toggle="tooltip" title="Save email address" ng-disabled="newEmail.value==''">
+                                            Save
+                                        </button> 
+                                    </div>                                               
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-outline-primary" data-target="#newEmail" data-toggle="collapse">
+                                            Cancel
+                                        </button> 
+                                    </div>                                                                                                         
+                                </div>
+                            </div>  
+                        </div>                                         
+                        <hr>
+                    </div> 
+
+                    <div ng-repeat="e in profile.emailAddress" class="mt-3">             
+                        <div class="row hoverDiv">
+                            <div class="offset-md-1 col-md-3">
+                                <div class="lead">
+                                    <span class="oi oi-envelope-closed"></span>
+                                    {{e.emailAddress}}
+                                </div>
+                            </div>                                                                                                      
+
+                            <div class="col-md-7" style="margin-top: 8px;">                                        
+                                <div class="form-check float-right">                                                        
+                                    <input class="form-check-input" type="checkbox" ng-model="e.isShownInServiceCard" ng-click="fn_serviceEmailUpdate(e.emailID)" id="isShownInServiceCard_email{{e.emailID}}">
+                                    <label>
+                                        Show on profile
+                                    </label>                                                            
+                                </div>                                                 
+                            </div>
+
+                            <div class="col-md-1">                                        
+                                <button type="button" class="btn btn-link float-right" ng-click="fn_serviceEmailDelete(e)">
+                                    <span class="oi oi-trash"></span>
+                                </button>
+                            </div>                                                                                                                     
+                        </div>                                                                                                          
+                    </div>
+
+                    <div class="row mt-3">
+                        <p class="col-md-12 lead">
+                            <strong>Phone numbers</strong>                                        
+                        </p>    
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <button type="button" style="padding:0px; color: #550cff" class="btn btn-link" data-target="#newPhone" data-toggle="collapse" title="Add phone">
+                                <strong>Add phone number</strong>                                           
+                            </button>              
+                        </div>                                                                            
+                    </div>          
+
+                    <div class="collapse" id="newPhone" style="margin-bottom: 1rem;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" ng-model="newPhoneNumber.value" placeholder="New phone number">
+                                    </div>  
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-success float-left" ng-click="fn_phoneAdd()" data-toggle="tooltip" title="Save phone number" ng-disabled="newPhoneNumber.value==''">
+                                            Save
+                                        </button> 
+                                    </div>                                                
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-outline-primary" ng-click="fn_cancelNewPhone()" data-target="#newPhone" data-toggle="collapse">
+                                            Cancel
+                                        </button> 
+                                    </div>                                                                                                     
+                                </div>
+
+                            </div>  
+                        </div>                                         
+                        <hr>
+                    </div>  
+
+                
+                    <div ng-repeat="x in profile.phoneNumber" class="mt-3">
+                        <div class="row hoverDiv">                           
+                                            
+                            <div class="offset-md-1 col-md-3">
+                                <div class="lead">            
+                                    <span class="oi oi-phone"></span>                                                                                         
+                                    {{x.phoneNumber}}
+                                </div>                                          
+                            </div>                                                                                 
+
+                            <div class="col-md-7 float-right" style="margin-top: 8px;">                                        
+                                <div class="form-check float-right">                                                        
+                                    <input class="form-check-input" type="checkbox" ng-model="x.isShownInServiceCard" ng-click="fn_phoneUpdate(x)" id="isShownInServiceCard_phone{{x.phoneID}}">
+                                    <label>
+                                        Show on profile
+                                    </label>                                                            
+                                </div>                                                 
+                            </div>
+
+                            <div class="col-md-1">                                        
+                                <button type="button" class="btn btn-link float-right" ng-click="fn_phoneRemove(x)">
+                                    <span class="oi oi-trash"></span>
+                                </button>
+                            </div>                                         
+
+                        </div> 
+                    </div>                                                                     
+
+                    <div class="row" >
+                        <p class="lead col-md-12">
+                            <strong>Websites</strong>
+                        </p>                                                                                                                                                                                  
+                    </div> 
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <button type="button" style="padding:0px; color: #550cff" class="btn btn-link" data-target="#newWebsite" data-toggle="collapse" title="Add website">
+                                <strong>Add website</strong>                                           
+                            </button>              
+                        </div>                                                                            
+                    </div>
+                    <div class="collapse" id="newWebsite" style="margin-bottom: 1rem;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input class="form-control" id="inputNewWebsite" ng-model="newWebsite.value" type="text" placeholder="Enter your website link">
+                                    </div>                     
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-success float-left" ng-click="fn_serviceWebsiteAdd()" data-toggle="tooltip" title="Save website" ng-disabled="newWebsite.value==''">
+                                            Save
+                                        </button>                                                   
+                                    </div>                                                                                                                     
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-outline-primary" data-target="#newWebsite" data-toggle="collapse">
+                                            Cancel
+                                        </button> 
+                                    </div>                                                     
+                                </div>
+                            </div>  
+                        </div>   
+                        <hr>                                      
+                    </div>
+                    <div ng-repeat="x in profile.website" class="mt-3">
+                        <div class="row hoverDiv">                           
+                                            
+                            <div class="offset-md-1 col-md-4">
+                                <div class="lead">            
+                                    <span class="oi oi-globe"></span>                                                                                 
+                                    {{x.websiteAddress}}
+                                </div>                                          
+                            </div>                                                                                 
+
+                            <div class="col-md-6 float-right" style="margin-top: 8px;">                                        
+                                <div class="form-check float-right">                                                        
+                                    <input class="form-check-input" type="checkbox" ng-model="x.isShownInServiceCard" ng-click="fn_websiteUpdate(x)">
+                                    <label>
+                                        Show on profile
+                                    </label>                                                            
+                                </div>                                                 
+                            </div>
+
+                            <div class="col-md-1">                                        
+                                <button type="button" class="btn btn-link float-right" ng-click="fn_websiteRemove(x)">
+                                    <span class="oi oi-trash"></span>
+                                </button>
+                            </div>                                         
+
+                        </div> 
+                    </div>
+                    <hr>
+
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <h5>ADDRESS MANAGEMENT</h5>
+                        </div>                                                                               
+                    </div> 
+
+                    <div class="row" >
+                        <p class="lead col-md-12">
+                            <strong>Service address</strong>
+                        </p>                                                                                                                                                                                  
+                    </div>                                      
+                    
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <button type="button" style="padding:0px; color: #550cff" class="btn btn-link" data-target="#newAddress" data-toggle="collapse" title="Add address">
+                                <strong>Add address</strong>                                           
+                            </button>              
+                        </div>                                                                            
+                    </div>          
+
+                    <div class="collapse" id="newAddress" style="margin-bottom: 1rem;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input class="form-control" id="inputNewAddress" ng-model="fullAddress.value" type="text" placeholder="Enter your service address">
+                                    </div>                     
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-success float-left" ng-click="fn_serviceAddressAdd()" data-toggle="tooltip" title="Save Address" ng-disabled="fullAddress.value==''">
+                                            Save
+                                        </button>                                                   
+                                    </div>                                                                                                                     
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-outline-primary" data-target="#newAddress" data-toggle="collapse">
+                                            Cancel
+                                        </button> 
+                                    </div>                                                     
+                                </div>
+                            </div>  
+                        </div>                                         
+                    </div>  
+
+                    <div ng-repeat="sa in profile.serviceAddress" class="mt-3">
+                        <div class="row hoverDiv">
+                            <div class="offset-md-1 col-md-6 lead">                                               
+                                <span class="oi oi-map-marker"></span>
+                                <span id='street_number'>{{sa.number}}</span>
+                                <span id='route'>{{sa.street}},</span>
+                                <span id='locality'>{{sa.city}},</span>
+                                <span id='country'>{{sa.country}}</span>                                                                                                                                                                                                                                       
+                            </div>
+                            <div class="col-md-4">                                        
+                                <button type="button" class="btn btn-link float-right" data-target="#{{sa.mapID}}" data-toggle="collapse">
+                                    Manage hours
+                                </button>
+                            </div>                                      
+                            <div class="col-md-1">                                        
+                                <button type="button" class="btn btn-link trash float-right" ng-click="fn_serviceAddressRemove(sa)">
+                                    <span class="oi oi-trash"></span>
+                                </button>
+                            </div>                                              
+                        </div>
+                        <div class="collapse" id="{{sa.mapID}}" style="margin-bottom: 1rem;">
+                            <div class="row">
+                                <div class="offset-md-1 col-md-6"> 
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form>
+                                                <table class="table table-borderless table-hover" style="margin-bottom:0">
+                                                    <tbody>
+                                                        <tr ng-repeat="wh in sa.workingHours">                                                            
+                                                            <th scope="row">                                                                    
+                                                                <div class="form-group form-check">
+                                                                    <input type="checkbox" class="form-check-input" ng-model="wh.isOpen">
+                                                                    <label class="form-check-label" for="whSunday">{{ wh.dayOfWeek }}</label>
+                                                                </div>                                                                    
+                                                            </th>
+                                                            <td>
+                                                                <div moment-picker="wh.openAt" format="HH:mm" show-header="false">
+                                                                    <input class="form-control" ng-model="wh.openAt" ng-disabled="!wh.isOpen" >
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div moment-picker="wh.closeAt" format="HH:mm" show-header="false">
+                                                                    <input class="form-control" ng-model="wh.closeAt" ng-disabled="!wh.isOpen">
+                                                                </div>                                                                        
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-link" ng-click="fn_workingHoursSave(wh)" ng-disabled="!wh.isOpen || wh.openAt==undefined || wh.closeAt==undefined ">
+                                                                    <span class="oi oi-check"></span>
+                                                                </button>      
+                                                            </td>
+                                                        </tr>                                                                                                                                                                                                                                                                            
+                                                    </tbody>                                
+                                                </table>                                                       
+                                            </form>
+                                        </div>
+                                    </div>                                        
+                                </div>
+                            </div>                                         
+                        </div> 
+                    </div>     
+
+
+
+
+
+
+
+
+
+                    <div class="row mt-3">
+                        <p class="lead col-md-12">
+                            <strong>Photo Gallery</strong>                                        
+                        </p>                                                       
+                    </div>   
+                    
+                    <form ng-submit="uploadFile();">
+                        <div class="row">
+                            <div class="col-md-4" ng-hide="file.upload">
+                                <label style="padding:0px; color: #550cff" class="btn btn-link" title="Choose files to upload">
+                                    <strong>Choose file</strong>
+                                    <input type="file" file-model="file.upload" style="display: none" ng-disabled="uploading" onchange="angular.element(this).scope().photoChanged(this.files)">
+                                </label>                                                    
+                            </div>                    
+                            <div class="col-md-4" ng-show="file.upload">
+                                <button style="padding:0px; color:#28a745" type="submit" class="btn btn-link" ng-disabled="uploading">
+                                    <strong>Upload</strong>
+                                </button>
+                            </div>       
+                            <div class="col-md-8">                                        
+                                <button type="button" class="btn btn-link float-right" data-target="#gallery" data-toggle="collapse" aria-expanded="true" >
+                                    Close gallery
+                                </button>
+                            </div>                                                                   
+                        </div>         
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <div class="progress" ng-show="uploading">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                                </div>                             
+                            </div>
+                        </div>
+                        <div class="row" ng-show="thumbnail.dataUrl">
+                            <div class="col-md-12 lead">
+                                Preview
+                            </div>
+                        </div> 
+                        <div class="row" ng-show="thumbnail.dataUrl">
+                            <div class="col-md-3">
+                                <img class="img-thumbnail" ng-src="{{ thumbnail.dataUrl || './images/imagePlaceholder.jpg' }}">
+                            </div>                    
+                        </div>    
+                        <div class="collapse show" id="gallery" style="margin-bottom: 1rem;">
+                            <div class="row">
+                                <div class="col-md-3" ng-repeat="si in profile.serviceImage">
+                                    <div class="img-wraps">
+                                        <span  class="closes oi oi-trash" ng-click="fn_deleteImage($index, si.imageID)" title="Delete"></span>
+                                        <img class="img-thumbnail" width="304" height="236" ng-src="{{ si.imageFullPath }}" ng-click="fn_viewFullImage(si.imageFullPath)">                                
+                                    </div>                                
+                                </div>
+                            </div>                            
+                        </div>                                 
+                    </form>
+                    <hr>
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <h5>PERSONAL INFORMATION</h5>
+                        </div>                                     
+                    </div>                
+                    
+                    
+                    <div class="row hoverDiv" ng-show="!editUserFirstName" ng-click="editUserFirstName=true" data-toggle="tooltip" title="Edit your first name">
+                        <div class="offset-md-1 col-md-2">
+                            <p class="lead">
+                                <strong>First name</strong>                                
+                            </p>
+                        </div>
+                        <div class="col-md-9 lead">
+                            <p>{{ profile.userDetails.firstName }}</p>                                        
+                        </div>                                                                     
+                    </div>            
+                    <div class="row" ng-show="editUserFirstName">
+                        <div class="offset-md-1 col-md-2">
+                            <p class="lead"><strong>First name</strong></p>
+                        </div>                        
+                        <div class="col-md-7">
+                            <input type="text" class="form-control" ng-model="profile.userDetails.firstName">
+                        </div>                 
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-link float-right" ng-click="fn_saveUserFirstName()" data-toggle="tooltip" title="Save changes">
+                                <span class="oi oi-check"></span>
+                            </button>         
+                            <button type="button" class="btn btn-link float-right" ng-click="editUserFirstName=false" data-toggle="tooltip" title="Cancel">
+                                <span class="oi oi-circle-x"></span>
+                            </button>                                                                                                                                                                    
+                        </div>                                                        
+                    </div>                                                                     
+
+                    <div class="row hoverDiv" ng-show="!editUserLastName" ng-click="editUserLastName=true" data-toggle="tooltip" title="Edit your last name">
+                        <div class="offset-md-1 col-md-2">
+                            <p class="lead">
+                                <strong>Last name</strong>                                
+                            </p>
+                        </div>
+                        <div class="col-md-9 lead">
+                            <p>{{ profile.userDetails.lastName }}</p>                                        
+                        </div>                                                                       
+                    </div>            
+                    <div class="row" ng-show="editUserLastName">
+                        <div class="offset-md-1 col-md-2">
+                            <p class="lead"><strong>Last name</strong></p>
+                        </div>                        
+                        <div class="col-md-7">
+                            <input type="text" class="form-control" ng-model="profile.userDetails.lastName">
+                        </div>                 
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-link float-right" ng-click="fn_saveUserLastName()" data-toggle="tooltip" title="Save changes">
+                                <span class="oi oi-check"></span>
+                            </button>         
+                            <button type="button" class="btn btn-link float-right" ng-click="editUserLastName=false" data-toggle="tooltip" title="Cancel">
+                                <span class="oi oi-circle-x"></span>
+                            </button>                                                                                                                                                                    
+                        </div>                                                        
+                    </div>                    
+                    <div class="row hoverDiv" ng-show="!editBirthdate" ng-click="editBirthdate=true" data-toggle="tooltip" title="Edit your Birthdate">
+                        <div class="offset-md-1 col-md-2">
+                            <p class="lead">
+                                <strong>Birth Date</strong>                            
+                            </p>
+                        </div>
+                        <div class="col-md-9 lead">
+                            <p>{{ profile.userDetails.birthDate }}</p>                                                                   
+                        </div>                                                                       
+                    </div>            
+
+                    <div class="row" ng-show="editBirthdate">
+                        <div class="offset-md-1 col-md-2">
+                            <p class="lead"><strong>Birth Date</strong></p>
+                        </div>                        
+                        <div class="col-md-7">
+                            <div moment-picker="profile.userDetails.birthDate" format="YYYY-MM-DD" show-header="true">
+                                <input class="form-control" ng-model="profile.userDetails.birthDate" placeholder="Select your Birth date...">
+                            </div>
+                        </div>                 
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-link float-right" ng-click="fn_saveUserBirthdate()" data-toggle="tooltip" title="Save changes">
+                                <span class="oi oi-check"></span>
+                            </button>         
+                            <button type="button" class="btn btn-link float-right" ng-click="editBirthdate=false" data-toggle="tooltip" title="Cancel">
+                                <span class="oi oi-circle-x"></span>
+                            </button>                                                                                                                                                                    
+                        </div>                                                        
+                    </div>                    
+  
+                    <!--
+                    <div class="row hoverDiv" ng-show="!editGender">
+                        <div class="offset-md-1 col-md-2">
+                            <p class="lead">Gender</p>
+                        </div>
+                        <div class="col-md-8 lead">
+                            <strong>{{ profile.userDetails.gender }}</strong>                                        
+                        </div>                 
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-link float-right" ng-click="editGender=true" data-toggle="tooltip" title="Edit gender">
+                                <span class="oi oi-pencil"></span>
+                            </button>                                                                                                                        
+                        </div>                                                        
+                    </div>            
+                    
+                    <div class="row" ng-show="editGender">
+                        <div class="offset-md-1 col-md-2">
+                            <p class="lead">Gender</p>
+                        </div>                        
+                        <div class="col-md-7">
+                            <select class="form-control" ng-model="newGender" ng-options="gender.value for gender in system.gender" ng-value="profile.userDetails.gender"></select>
+                        </div>                 
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-link float-right" ng-click="fn_saveUserGender()" data-toggle="tooltip" title="Save changes">
+                                <span class="oi oi-check"></span>
+                            </button>         
+                            <button type="button" class="btn btn-link float-right" ng-click="editGender=false" data-toggle="tooltip" title="Cancel">
+                                <span class="oi oi-circle-x"></span>
+                            </button>                                                                                                                                                                    
+                        </div>                                                        
+                    </div>
+                    -->
+
+
+                </div>                   
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="tab-pane fade" id="nav-messages" role="tabpanel" aria-labelledby="nav-messages-tab">Messages</div>
+                <div class="tab-pane fade" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab">
+                    <form>
+                        <div class="row">
+                            <div class="col"><h5>Change password</h5></div>
+                        </div>
+                        <div class="row">
+                            <label for="profileOldPassword" class="col-sm-3 col-form-label">Old Password</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" id="profileOldPassword">
+                            </div>
+                        </div>                            
+                        <div class="row">
+                            <label for="profilePassword" class="col-sm-3 col-form-label">New Password</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" id="profilePassword">
+                            </div>
+                        </div>              
+                        <div class="row">
+                            <label for="profileConfirmPassword" class="col-sm-3 col-form-label">Confirm password</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" id="profileConfirmPassword">
+                            </div>
+                        </div> 
+                    </form>
+                </div>   
+
+
+
+
+
+            </div>                   
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="spinnerModal">
+    <div class="modal-dialog modal-dialog-centered text-center" role="document">
+        <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+    </div>
+</div>
+    
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="imageView">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-conten">
+            <div class="modal-body ">
+                <img class="img-fluid" ng-src="{{ largeImagePath }}">
+            </div>
+        </div>
+    </div>
+</div>
