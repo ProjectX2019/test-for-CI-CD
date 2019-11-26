@@ -1,6 +1,5 @@
-runtime: nodejs
-env: flex
-
+name - gcr.io/gcp-runtimes/nodejs/
+Arg [--runtime-image gcr.io/google-appengine/nodejs@sha256:ef8be7b4dc77c3e71fbc85ca88186b13214af8f83b8baecc65e8ed85bb904ad5]
   
   
   
