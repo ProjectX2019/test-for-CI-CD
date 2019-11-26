@@ -1,10 +1,9 @@
-steps:
--name:  gcr.io/gcp-runtimes/nodejs/gen-dockerfile@sha256:d5293a583629252c12c478b572103b557ee26235c6b03a57d1f18d52882fb937
-Args: [--runtime-image gcr.io/google-appengine/nodejs@sha256:ef8be7b4dc77c3e71fbc85ca88186b13214af8f83b8baecc65e8ed85bb904ad5]
--Env. Vars:	GAE_APPLICATION_YAML_PATH=app.yaml
-  
-  
-  
+runtime: nodejs
+env: flex
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 15
+  cool_down_period_sec: 180
   
   
 
