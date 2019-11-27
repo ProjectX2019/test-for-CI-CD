@@ -3,6 +3,4 @@ steps:
 - name: gcr.io/cloud-builders/git
   args: ['clone', 'https://github.com/ProjectX2019/test-for-CI-CD.git']
   #deploy the app
-- name: "gcr.io/cloud-builders/gcloud"
-   args: [ 'app', 'deploy',]
-timeout: "1600s"
+
