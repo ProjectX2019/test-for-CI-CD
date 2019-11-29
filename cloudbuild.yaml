@@ -3,5 +3,6 @@ steps:
 - name: gcr.io/cloud-builders/git
   args: ['clone', 'https://github.com/ProjectX2019/test-for-CI-CD.git']
 #deploy the app
-- name: 'gcr.io/kaniko-project/executor@sha256:f87c11770a4d3ed33436508d206c584812cd656e6ed08eda1cff5c1ee44f5870'
-  args: ['destination', 'us.gcr.io/cicd-260207/appengine/default.20191129t101125:latest']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['app', 'deploy', app.yaml]
+  timeout: '160s'
