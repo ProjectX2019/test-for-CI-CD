@@ -1,0 +1,10 @@
+steps:
+#clone to cloud
+- name: gcr.io/cloud-builders/git
+  args: ['clone', 'https://github.com/ProjectX2019/test-for-CI-CD.git']
+- name: gcr.io/cloud-builders/git
+  args: ['push', 'https://github.com/ProjectX2019/test-for-CI-CD.git']
+#deploy the app
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['app', 'deploy', app.yaml]
+  timeout: '160s'
