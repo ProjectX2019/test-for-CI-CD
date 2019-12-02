@@ -4,7 +4,5 @@ steps:
   args: ['clone', 'https://github.com/ProjectX2019/test-for-CI-CD.git']
 #deploy the app
 - name: 'gcr.io/cloud-builders/gcloud'
- env:
- - GAE_APPLICATION_YAML_PATH=app.yaml
   args: ['app', 'deploy']
   timeout: '400s'
