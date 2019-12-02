@@ -5,4 +5,5 @@ steps:
 #deploy the app
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['app', 'deploy']
+  env: GAE_APPLICATION_YAML_PATH=app.yaml
   timeout: '400s'
